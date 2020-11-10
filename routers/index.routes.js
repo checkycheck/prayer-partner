@@ -26,6 +26,7 @@ module.exports = function (app) {
   app.use("/api/v1/devotion",  require("./devotion.routes"));
   app.use("/api/v1/profile", [verifyToken], require("./profile.routes"));
   app.use("/api/v1/role", [verifyToken], require("./role.routes"));
+  app.use("/api/v1/testimony", [verifyToken], require("./testimony.routes"));
   app.use("/api/v1/file", [verifyToken], require("./file.routes"));
 
 };
