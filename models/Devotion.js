@@ -18,12 +18,10 @@ const DevotionSchema = new mongoose.Schema({
         type: String
     },
     category:{
-        cat:{
-            type:String
-        },
-        subCat:{
-            type: String
-        }
+        type:String
+    },
+    subCategory:{
+        type:String
     }
 })
 

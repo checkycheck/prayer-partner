@@ -72,8 +72,8 @@ const editDevotion = asyncHandler(async(req, res, next) =>{
     if(req.body.text) devotionFields.text = req.body.text;
     if(req.body.time) devotionFields.time = req.body.time;
     if(req.body.publishDate) devotionFields.publishDate = req.body.publishDate;
-    if(req.body.cat) devotionFields.cat = req.body.cat;
-    if(req.body.subCat) devotionFields.subCat = req.body.subCat;
+    if(req.body.category) devotionFields.cat = req.body.category;
+    if(req.body.subCatategory) devotionFields.subCat = req.body.subCategory;
 
      await Devotion.findByIdAndUpdate(
         { _id: id }, 
@@ -95,11 +95,52 @@ const editDevotion = asyncHandler(async(req, res, next) =>{
      })
  })
 
+ const devotionCat = asyncHandler(async (req, res, next) =>{
+     let cat  = req.params.cat
+     await Devotion.find({category:cat})
+     .then(devotion =>{
+        if(!devotion) next(new ErrorResponse("Devotion not found", 404));
+
+        res.status(200).json({
+            success: true,
+            message:`${cat} category`,
+            data:devotion
+        })
+
+         
+     })
+     .catch(err =>{
+         return next(new ErrorResponse("Devotion not found", 404));
+     })
+ })
+
+ const devotionSubCat = asyncHandler(async (req, res, next) =>{
+    let subcat  = req.params.subcat
+    await Devotion.find({subCategory:subcat})
+    .then(devotion =>{
+       if(!devotion) next(new ErrorResponse("Devotion not found", 404));
+
+       res.status(200).json({
+           success: true,
+           message:`${cat} category`,
+           data:devotion
+       })
+
+        
+    })
+    .catch(err =>{
+        return next(new ErrorResponse("Devotion not found", 404));
+    })
+})
+
+
 
 module.exports = {
     createDevotion,
     getDevotions,
     getDevotionSingle,
     deleteDevotion,
-    editDevotion
+    editDevotion,
+    devotionCat,
+    devotionSubCat
 }
