@@ -115,7 +115,7 @@ const editDevotion = asyncHandler(async(req, res, next) =>{
  })
 
  const devotionSubCat = asyncHandler(async (req, res, next) =>{
-    let subcat  = req.params.subcat
+    let subcat  = req.params.subCat
     await Devotion.find({subCategory:subcat})
     .then(devotion =>{
        if(!devotion) next(new ErrorResponse("Devotion not found", 404));
